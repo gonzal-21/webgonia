@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OpenDirectory Business Lab | FODA y PESTEL</title>
+<style>
+:root{--bg:#f4f7f5;--card:#fff;--txt:#17221c;--muted:#68766d;--line:#d9e2dc;--brand:#176b4d;--soft:#edf3ef;--shadow:0 12px 35px rgba(0,0,0,.08)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,system-ui,sans-serif;color:var(--txt)}
+header{padding:18px 24px;background:#0f3326;color:#fff}.wrap{max-width:1400px;margin:auto;padding:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.context{padding:16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:18px}.context input{padding:10px}
+.tabs{display:flex;gap:8px;margin-bottom:20px}.tabs button{padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:#fff;cursor:pointer}.tabs button.active{background:var(--brand);color:#fff}
+.page{display:none}.page.active{display:block}
+.foda{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.quad{padding:14px}.quad h3{margin:0 0 8px}.quad textarea,.block textarea{width:100%;min-height:220px;padding:10px;border:1px solid var(--line);border-radius:10px}
+.pestel{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.block{padding:14px}.block h3{margin:0 0 8px}
+.actions{margin:16px 0;display:flex;gap:10px}.btn{padding:10px 14px;border-radius:10px;border:0;background:var(--brand);color:#fff}
+.summary{padding:16px;margin-top:16px}.summary ul{margin:0}.muted{color:var(--muted)}
+@media(max-width:900px){.foda,.pestel,.context{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><h1>OpenDirectory Business Lab · FODA y PESTEL</h1></header>
+<div class="wrap">
+<div class="card context">
+<input id="empresa" placeholder="Empresa" value="Patagonia Experiencias">
+<input id="asesor" placeholder="Asesor" value="OpenDirectory">
+<input id="sector" placeholder="Sector" value="Turismo">
+</div>
+<div class="tabs">
+<button class="active" data-tab="foda">Análisis FODA</button>
+<button data-tab="pestel">Análisis PESTEL</button>
+</div>
+<div id="foda" class="page active">
+<div class="foda">
+<div class="card quad"><h3>Fortalezas</h3><textarea data-k="fortalezas"></textarea></div>
+<div class="card quad"><h3>Debilidades</h3><textarea data-k="debilidades"></textarea></div>
+<div class="card quad"><h3>Oportunidades</h3><textarea data-k="oportunidades"></textarea></div>
+<div class="card quad"><h3>Amenazas</h3><textarea data-k="amenazas"></textarea></div>
+</div>
+</div>
+<div id="pestel" class="page">
+<div class="pestel">
+<div class="card block"><h3>Político</h3><textarea data-k="politico"></textarea></div>
+<div class="card block"><h3>Económico</h3><textarea data-k="economico"></textarea></div>
+<div class="card block"><h3>Social</h3><textarea data-k="social"></textarea></div>
+<div class="card block"><h3>Tecnológico</h3><textarea data-k="tecnologico"></textarea></div>
+<div class="card block"><h3>Ecológico</h3><textarea data-k="ecologico"></textarea></div>
+<div class="card block"><h3>Legal</h3><textarea data-k="legal"></textarea></div>
+</div>
+</div>
+<div class="actions">
+<button class="btn" id="save">Guardar</button>
+<button class="btn" id="example">Cargar ejemplo turístico</button>
+<button class="btn" id="export">Exportar JSON</button>
+</div>
+<div class="card summary">
+<h3>Resumen estratégico</h3>
+<ul id="summary"><li class="muted">Completa los campos para construir un diagnóstico.</li></ul>
+</div>
+</div>
+<script>
+const key='od-foda-pestel';
+let state=JSON.parse(localStorage.getItem(key)||'{}');
+document.querySelectorAll('[data-k]').forEach(t=>{t.value=state[t.dataset.k]||'';t.oninput=()=>{state[t.dataset.k]=t.value;update()}});
+document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(b.dataset.tab).classList.add('active')});
+function update(){const s=document.getElementById('summary');let items=[];if(state.fortalezas)items.push('Fortalezas registradas.');if(state.oportunidades)items.push('Existen oportunidades identificadas.');if(state.amenazas)items.push('Hay amenazas a monitorear.');if(state.economico)items.push('Variables económicas consideradas.');if(state.legal)items.push('Factores regulatorios incorporados.');s.innerHTML=items.length?items.map(x=>'<li>'+x+'</li>').join(''):'<li class="muted">Sin información suficiente.</li>'}
+update();
+document.getElementById('save').onclick=()=>{localStorage.setItem(key,JSON.stringify(state));alert('Análisis guardado')};
+document.getElementById('example').onclick=()=>{Object.assign(state,{fortalezas:'Marca local\nConocimiento del territorio',debilidades:'Dependencia estacional',oportunidades:'Crecimiento turismo internacional',amenazas:'Clima extremo',economico:'Tipo de cambio\nDemanda turística',ecologico:'Conservación de áreas protegidas'});location.reload()};
+document.getElementById('export').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}));a.download='foda-pestel.json';a.click()};
+</script>
+</body>
+</html>
