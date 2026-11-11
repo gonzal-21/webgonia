@@ -14,6 +14,7 @@ Colección de páginas HTML estáticas (cada una en un solo archivo, con CSS y J
 | `opendirectory-foda-pestel 1 5.html` | Análisis FODA y PESTEL (datos en `foda-pestel.json`, actualmente vacío) |
 | `opendirectory-informe-estrategia.html` | Informe: estrategia tradicional vs. startup, tabla resumen, diálogo entre equipos y opciones de versión de escritorio |
 | `opendirectory-informe-datos-seo.html` | Informe: base de datos, recolección de datos y analítica SEO |
+| `opendirectory-fintech-turismo-parques.html` | Leyes e instituciones de fintech, exportaciones y turismo; reglas de conducta en parques de la Patagonia (Torres del Paine) |
 | `opendirectory-ciberseguridad-leyes.html` | Ciberseguridad y leyes chilenas de datos e información (19.628, 21.719, 21.663, 21.459) |
 | `opendirectory-teoria-juegos.html` | Teoría de juegos y equilibrio de Nash, con calculadora 2×2 (JS inline) |
 | `opendirectory-economics-*.html`, `opendirectory-macroeconomia 2 6.html`, `opendirectory-microeconomia 2 6.html` | Laboratorios de economía |
