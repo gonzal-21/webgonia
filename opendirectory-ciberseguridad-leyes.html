@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Ciberseguridad y leyes chilenas de datos e información aplicadas a OpenDirectory.">
+<title>Ciberseguridad y leyes de datos en Chile | OpenDirectory</title>
+<style>
+:root{--bg:#f5f7f4;--surface:#fff;--text:#17221c;--muted:#65736a;--brand:#176b4d;--line:#dbe4dc;--warn:#fff4d6}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1511;--surface:#142019;--text:#edf6f0;--muted:#9fb1a5;--brand:#49b887;--line:#2a3c31;--warn:#3a3114}}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,sans-serif}main{max-width:1000px;margin:auto;padding:24px}
+a{color:var(--brand)}h2{margin-top:36px;color:var(--brand)}.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 20px}
+.wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;background:var(--surface)}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;font-size:14px}th{background:var(--brand);color:#fff}
+.muted{color:var(--muted)}.warn{background:var(--warn);border-radius:10px;padding:10px 16px}
+</style></head><body><main>
+<p><a href="opendirectory.html">← OpenDirectory</a></p>
+<h1>Ciberseguridad y leyes chilenas de datos e información</h1>
+<p class="muted">Marco general aplicado a un directorio abierto de empresas con registro, panel admin y directorios personales.</p>
+<p class="warn"><b>Aviso:</b> material educativo, no asesoría jurídica. Las normas cambian y las fechas de vigencia deben verificarse en <a href="https://www.bcn.cl/leychile">bcn.cl/leychile</a> antes de decidir. Consulte a un abogado.</p>
+
+<h2>1. Marco legal chileno relevante</h2>
+<div class="wrap"><table><thead><tr><th>Norma</th><th>Qué regula</th><th>Relevancia para OpenDirectory</th></tr></thead><tbody>
+<tr><td>Ley 19.628 (vida privada)</td><td>Protección de datos personales; régimen histórico, débil en sanciones y sin autoridad de control.</td><td>Vigente hasta que entre en aplicación plena la ley 21.719.</td></tr>
+<tr><td>Ley 21.719 (nueva ley de protección de datos personales, 2024)</td><td>Principios (licitud, finalidad, proporcionalidad, calidad, seguridad, transparencia), derechos ARCO+ (acceso, rectificación, supresión, oposición, portabilidad, bloqueo), Agencia de Protección de Datos Personales, sanciones elevadas, notificación de brechas. Entrada en vigor diferida (verificar fecha).</td><td>Aplica a contactos de empresas que sean personas naturales: nombre, correo y teléfono del formulario de registro.</td></tr>
+<tr><td>Ley 21.663 (Marco de Ciberseguridad, 2024)</td><td>Institucionalidad (ANCI), servicios esenciales y operadores de importancia vital, obligación de reportar incidentes.</td><td>Probablemente no obligatoria para un directorio pequeño, pero fija el estándar de buena práctica.</td></tr>
+<tr><td>Ley 21.459 (delitos informáticos, 2022)</td><td>Acceso ilícito, interceptación, ataque a la integridad de datos o sistemas, fraude informático. Reemplaza a la ley 19.223 y se alinea con el Convenio de Budapest.</td><td>Marco penal frente a intrusiones; justifica registro de accesos y denuncias.</td></tr>
+<tr><td>Ley 19.799 (firma electrónica)</td><td>Validez de documentos y firmas electrónicas.</td><td>Relevante si se aceptan documentos de verificación de empresas.</td></tr>
+<tr><td>Ley 19.496 (consumidor)</td><td>Información veraz a consumidores y publicidad.</td><td>La insignia «verificada» debe corresponder a una verificación real.</td></tr>
+<tr><td>Ley 20.285 (transparencia)</td><td>Acceso a información pública del Estado.</td><td>Si se usan datos públicos o de municipios como fuente.</td></tr>
+<tr><td>Ley 17.336 (propiedad intelectual)</td><td>Derechos de autor y bases de datos.</td><td>Licencia del código (MIT propuesta) y de los datos abiertos; logos de terceros.</td></tr></tbody></table></div>
+
+<h2>2. Mapa de datos del proyecto</h2>
+<div class="wrap"><table><thead><tr><th>Dato</th><th>Dónde está hoy</th><th>Riesgo</th><th>Tratamiento recomendado</th></tr></thead><tbody>
+<tr><td>Nombre, descripción, categoría, comuna, web</td><td>Fichas públicas (JS embebido)</td><td>Bajo</td><td>Publicar con consentimiento de la empresa.</td></tr>
+<tr><td>RUT, razón social</td><td>Formulario de registro (<code>localStorage</code>)</td><td>Medio (RUT de persona natural es dato personal)</td><td>No publicar; almacenar separado.</td></tr>
+<tr><td>Correo, teléfono, contacto</td><td>Formulario de registro, panel admin</td><td>Medio-alto</td><td>Minimizar, cifrar en reposo, acceso solo admin.</td></tr>
+<tr><td>Notas y colecciones privadas</td><td>Directorio personal</td><td>Medio</td><td>Visibles solo para su dueño; permitir exportar y borrar.</td></tr>
+<tr><td>Eventos de uso (futuro)</td><td>No existe aún</td><td>Medio</td><td>Anónimos, sin identificadores personales.</td></tr></tbody></table></div>
+
+<h2>3. Obligaciones prácticas bajo el enfoque de la ley 21.719</h2>
+<div class="card"><ol>
+<li><b>Base de licitud:</b> consentimiento explícito e informado en el formulario (casilla de privacidad ya existente) o interés legítimo documentado.</li>
+<li><b>Finalidad y minimización:</b> recolectar solo lo necesario para el directorio; separar datos de contacto de los públicos.</li>
+<li><b>Transparencia:</b> política de privacidad clara con responsable, finalidades, plazos y canal de contacto.</li>
+<li><b>Derechos del titular:</b> procedimiento para acceso, rectificación, supresión, oposición y portabilidad (la exportación de datos ya es un principio del proyecto).</li>
+<li><b>Seguridad:</b> medidas técnicas y organizativas proporcionales al riesgo (sección 4).</li>
+<li><b>Brechas:</b> plan de respuesta y notificación a la autoridad y a los afectados cuando corresponda.</li>
+<li><b>Conservación:</b> plazos definidos y eliminación al cerrar la cuenta.</li>
+<li><b>Terceros y transferencias:</b> contratos con proveedores (hosting, analítica) y revisión de transferencias internacionales de datos.</li></ol></div>
+
+<h2>4. Ciberseguridad: controles según el estado del proyecto</h2>
+<div class="wrap"><table><thead><tr><th>Hallazgo en el repositorio</th><th>Riesgo</th><th>Control recomendado</th></tr></thead><tbody>
+<tr><td>Panel admin y solicitudes en <code>localStorage</code></td><td>No hay autenticación real: cualquiera con acceso al navegador ve o altera datos; no es un control de acceso.</td><td>Autenticación en servidor, roles, sesiones seguras y MFA para administradores.</td></tr>
+<tr><td>Datos de usuario insertados en HTML con JS (<code>innerHTML</code> con plantillas)</td><td>XSS si se muestran textos ingresados por terceros.</td><td>Escapar la salida, usar <code>textContent</code>, y definir una Content-Security-Policy.</td></tr>
+<tr><td>Sitio estático sin cabeceras propias</td><td>Falta de protección de transporte y de navegador.</td><td>HTTPS obligatorio y HSTS, <code>X-Content-Type-Options</code>, <code>Referrer-Policy</code>, política de permisos.</td></tr>
+<tr><td>Formulario de registro sin backend</td><td>Spam y abuso cuando exista el backend.</td><td>Validación en servidor, límites de tasa, captcha o verificación por correo.</td></tr>
+<tr><td>Futuro API y base de datos</td><td>Inyección SQL, fuga de datos, secretos expuestos.</td><td>Consultas parametrizadas, mínimo privilegio, secretos fuera del repositorio, cifrado y copias de seguridad probadas.</td></tr>
+<tr><td>Dependencias (Rust, React, CDN) futuras</td><td>Cadena de suministro.</td><td>Dependabot, bloqueo de versiones, SRI en scripts de CDN, escaneo de secretos.</td></tr>
+<tr><td>Operación</td><td>Incidentes sin respuesta definida.</td><td>Registro de accesos, monitoreo, plan de respuesta y contacto <code>security.txt</code>.</td></tr></tbody></table></div>
+<p class="muted">Referencias técnicas: OWASP Top 10 y ASVS, ISO/IEC 27001 y 27002, NIST Cybersecurity Framework 2.0, guías del CSIRT de Chile.</p>
+
+<h2>5. Lista de verificación</h2>
+<ul><li>☐ Política de privacidad y términos publicados.</li><li>☐ Consentimiento explícito en el registro, con registro de la fecha.</li>
+<li>☐ Datos de contacto separados de los datos públicos.</li><li>☐ Autenticación real antes de exponer el panel admin.</li>
+<li>☐ CSP y cabeceras de seguridad; HTTPS forzado.</li><li>☐ Procedimiento para ejercer derechos y plan de brechas.</li>
+<li>☐ Licencia del código y de los datos definida (hoy MIT es solo propuesta).</li><li>☐ Revisión legal antes del lanzamiento.</li></ul>
+
+<h2>6. Preguntas abiertas</h2>
+<ul><li>¿Quién es el responsable del tratamiento y quién atiende los derechos de los titulares?</li>
+<li>¿Se almacenarán datos de personas naturales (RUT, correo, teléfono)? Si sí, ¿con qué base de licitud?</li>
+<li>¿Dónde se alojarán los datos y hay transferencia internacional?</li>
+<li>¿Cuándo entra en vigor cada obligación de la ley 21.719 y qué se exige a un proyecto de este tamaño?</li></ul>
+</main></body></html>
