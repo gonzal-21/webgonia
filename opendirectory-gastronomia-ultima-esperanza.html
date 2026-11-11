@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Gastronomía en Última Esperanza y Torres del Paine: capacidad de mesas en temporada alta, monitoreo de reservas y ventas, indicadores de precios y ticket digital de bienvenida.">
-<title>Gastronomía en Última Esperanza y Torres del Paine | OpenDirectory</title>
+<meta name="description" content="Diseño de investigación: ¿limita la capacidad de mesas a la demanda en temporada alta en Última Esperanza y Torres del Paine?">
+<title>Gastronomía en Última Esperanza: diseño de investigación | OpenDirectory</title>
 <style>
 :root{--bg:#f5f7f4;--surface:#fff;--text:#17221c;--muted:#65736a;--brand:#176b4d;--line:#dbe4dc;--warn:#fff4d6;--accent:#f3b43f}
 @media(prefers-color-scheme:dark){:root{--bg:#0d1511;--surface:#142019;--text:#edf6f0;--muted:#9fb1a5;--brand:#49b887;--line:#2a3c31;--warn:#3a3114}}
@@ -9,155 +9,185 @@
 a{color:var(--brand)}h2{margin-top:36px;color:var(--brand)}.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 20px;margin:12px 0}
 .wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;background:var(--surface)}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;font-size:14px}th{background:var(--brand);color:#fff}
 .muted{color:var(--muted)}.warn{background:var(--warn);border-radius:10px;padding:10px 16px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}label{display:block;font-size:13px;font-weight:600}
-input,select{width:100%;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);font:inherit}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}label{display:block;font-size:13px;font-weight:600}
+input{width:100%;padding:7px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);font:inherit}
 .btn{background:var(--brand);color:#fff;border:0;border-radius:10px;padding:10px 16px;font-weight:700;cursor:pointer;margin:8px 8px 0 0}
 .out{background:color-mix(in srgb,var(--accent) 25%,transparent);border-radius:10px;padding:10px 14px;margin-top:10px;white-space:pre-line}
-code{word-break:break-all}
+.bar{height:12px;background:var(--brand);border-radius:4px;min-width:1px}code{word-break:break-all}
+td.in{padding:4px}td.in input{padding:4px}
 </style></head><body><main>
 <p><a href="opendirectory.html">← OpenDirectory</a> · <a href="opendirectory-fintech-turismo-parques.html">Fintech, turismo y parques</a> · <a href="opendirectory-ciberseguridad-leyes.html">Ciberseguridad y datos</a></p>
-<h1>Gastronomía en Última Esperanza y Torres del Paine</h1>
-<p class="muted">Informe y herramientas desde la óptica de un agente económico con enfoque en estadística y marketing digital. Territorio: provincia de Última Esperanza (Puerto Natales, Torres del Paine, Cerro Castillo, Villa Cerro Castillo, Río Verde, entre otros) y su entorno turístico.</p>
-<p class="warn"><b>Transparencia sobre los datos:</b> no tengo acceso en vivo a fuentes ni he verificado cifras. Por eso <b>no incluyo</b> conteos de restaurantes, hoteles, visitantes ni precios como si fueran hechos. Las calculadoras usan <b>supuestos editables</b>; los valores iniciales son ilustrativos. Los datos reales deben levantarse con las fuentes de la sección 3 y reemplazar estos supuestos.</p>
+<h1>Gastronomía en Última Esperanza y Torres del Paine: diseño de investigación</h1>
+<p class="warn"><b>Estado de los datos: ninguno verificado.</b> Esta página no contiene cifras reales de restaurantes, visitantes ni precios. Todo número que aparece es un <b>supuesto sin fuente</b> (marcado así) o un campo vacío por llenar. Su valor es el diseño: qué medir, con qué fuente, con qué método y cómo se sabrá si el resultado es correcto.</p>
 
-<h2>1. Resumen ejecutivo</h2>
+<h2>1. Pregunta de decisión</h2>
+<div class="card"><p><b>En temporada alta, ¿la capacidad de mesas de la provincia de Última Esperanza (Puerto Natales y entorno de Torres del Paine) limita la demanda de comidas fuera del alojamiento? Si es así, ¿qué política de precios y reservas debería aplicar un restaurante?</b></p>
+<p class="muted">Decisión que informa: si un restaurante debe subir precios, cobrar anticipo, abrir turnos o ampliar mesas; y si el directorio debe ofrecer reservas.</p></div>
+
+<h2>2. Hipótesis falsables</h2>
+<div class="wrap"><table><thead><tr><th>#</th><th>Hipótesis</th><th>Resultado que la refutaría</th></tr></thead><tbody>
+<tr><td>H1</td><td>En los días pico, la demanda de comidas fuera del alojamiento supera la capacidad operativa en el segmento urbano de Puerto Natales.</td><td>La probabilidad estimada de que demanda &gt; capacidad es baja (p. ej. &lt; 20 %) en el modelo, y los operadores reportan mesas libres en horas pico.</td></tr>
+<tr><td>H2</td><td>Existe demanda no atendida (rechazos por falta de mesa) que las ventas observadas no muestran.</td><td>Los registros de reservas rechazadas son prácticamente cero en los días pico.</td></tr>
+<tr><td>H3</td><td>Los precios de restaurantes en la zona superan sistemáticamente a la referencia regional (Punta Arenas) tras controlar por segmento y ubicación.</td><td>El coeficiente de localización de la regresión hedónica no es distinto de cero (intervalo de confianza incluye 0).</td></tr>
+<tr><td>H4</td><td>Un ticket de bienvenida aumenta el gasto incremental por mesa por encima de su costo.</td><td>El gasto incremental por mesa, medido en el experimento aleatorizado, no supera el costo de la bebida (intervalo de confianza incluye 0 o es menor al costo).</td></tr></tbody></table></div>
+
+<h2>3. Material de partida (fuentes primarias) y su estado</h2>
+<p class="muted">Se parte de los registros más cercanos al dato, no de resúmenes ya digeridos. Columna «Estado»: todo está pendiente; ninguna fuente ha sido consultada para esta página.</p>
+<div class="wrap"><table><thead><tr><th>Fuente</th><th>Titular y vía de acceso</th><th>Unidad / dato crudo</th><th>Limitaciones a documentar</th><th>Estado</th></tr></thead><tbody>
+<tr><td>Registro de contribuyentes por giro y comuna</td><td>SII (datos abiertos, solicitud de acceso)</td><td>Contribuyentes con actividad de alimentación y alojamiento, por comuna</td><td>Incluye locales inactivos; un giro no equivale a un local abierto</td><td>Pendiente</td></tr>
+<tr><td>Patentes comerciales</td><td>Municipalidades de Natales y Torres del Paine (Ley de Transparencia)</td><td>Listado de patentes de restaurante, cafetería y alcohol</td><td>Formato variable; puede haber atrasos de actualización</td><td>Pendiente</td></tr>
+<tr><td>Autorizaciones sanitarias</td><td>SEREMI de Salud de Magallanes (Ley de Transparencia)</td><td>Establecimientos de alimentos autorizados</td><td>Cobertura parcial de informales</td><td>Pendiente</td></tr>
+<tr><td>Registro de prestadores de turismo</td><td>SERNATUR (registro público)</td><td>Alojamiento y operadores registrados</td><td>El registro no es obligatorio para todos</td><td>Pendiente</td></tr>
+<tr><td>Visitantes de Torres del Paine</td><td>CONAF (estadísticas de visitantes; solicitud de series mensuales o diarias)</td><td>Ingresos por mes y origen (nacional/extranjero)</td><td>Mide ingresos al parque, no comensales; sin datos de Puerto Natales</td><td>Pendiente</td></tr>
+<tr><td>Precios del sector</td><td>INE (IPC, división restaurantes y alojamiento; metodología) y recolección propia</td><td>Cartas y menús con fecha, local e ítem</td><td>IPC regional no distingue turismo; la muestra propia depende del acceso</td><td>Pendiente</td></tr>
+<tr><td>Reservas y ventas (con consentimiento)</td><td>Restaurantes colaboradores (acuerdo escrito)</td><td>Registro de reservas incluidas las rechazadas; exportación del POS</td><td>Sesgo de selección: colaboran los más organizados</td><td>Pendiente</td></tr>
+<tr><td>Interés de búsqueda</td><td>Google Search Console (propiedad del sitio) y Google Trends</td><td>Consultas crudas e impresiones</td><td>Trends es relativo; Search Console cubre solo este sitio</td><td>Pendiente</td></tr>
+<tr><td>Observación de campo</td><td>Equipo propio</td><td>Mesas y asientos contados; duración del servicio; filas observadas</td><td>Pocos días de observación; sesgo del observador</td><td>Pendiente</td></tr></tbody></table></div>
+<p class="muted">Registro de procedencia: por cada fuente anotar fecha de acceso, versión del archivo y diccionario de datos; los archivos crudos se guardan sin modificar y las transformaciones se hacen solo con scripts versionados.</p>
+
+<h2>4. Diseño de medición</h2>
 <div class="card"><ul>
-<li><b>Estructura de la oferta:</b> la demanda turística es muy estacional (verano austral, aproximadamente de noviembre a marzo), mientras que la oferta de comida se concentra en Puerto Natales y en hoteles y refugios dentro o junto al parque, donde el huésped suele estar en régimen de pensión completa.</li>
-<li><b>Hipótesis central:</b> en temporada alta la capacidad de mesas es el cuello de botella, no la demanda; un tablero de capacidad frente a demanda permite decidir precios, turnos y reservas.</li>
-<li><b>Hipótesis de precios:</b> la logística de zona remota (insumos traídos desde Punta Arenas o más lejos) y la demanda de visitantes extranjeros elevan los precios sobre el promedio nacional, con alta dispersión entre segmentos.</li>
-<li><b>Producto:</b> un ticket digital de bienvenida (bebida gratis) sirve a la vez como herramienta de marketing y como medidor de conversión (ver sección 6).</li></ul></div>
+<li><b>Marco muestral:</b> unión depurada de SII + patentes + autorizaciones sanitarias + SERNATUR, deduplicada. Se reporta la <i>cobertura</i> (qué parte del marco se verificó en terreno) y los locales cerrados o informales no incluidos.</li>
+<li><b>Estratificación:</b> urbano Puerto Natales; hoteles/lodges (restaurante propio); refugios y campamentos; cafeterías y comercios en ruta; y comida preparada para excursiones. Muestra proporcional por estrato, con sobremuestreo de los estratos pequeños pero influyentes.</li>
+<li><b>Índice de precios:</b> canasta fija (8 a 10 ítems definidos con precisión: porción, preparación), medida el mismo día de la semana cada mes. Reportar mediana y rango intercuartílico, intervalo de confianza del 95 % por <i>bootstrap</i>, y deflactar con el IPC. Comparar con Punta Arenas con la misma canasta.</li>
+<li><b>Protocolo de campo de capacidad:</b> contar mesas y asientos <i>físicos</i> y los <i>operativos</i> (que realmente se usan), medir la duración de cada servicio con cronómetro en una muestra de mesas en varios días pico, y registrar el rechazo de clientes. Dos observadores independientes en una submuestra para medir el acuerdo entre ellos.</li>
+<li><b>Evitar doble conteo:</b> separar comensales alojados con pensión (no demandan mesas externas) de los externos.</li></ul></div>
 
-<h2>2. Segmentos de oferta a censar</h2>
-<div class="wrap"><table><thead><tr><th>Segmento</th><th>Ejemplos de formato</th><th>Cómo se compra</th><th>Indicador clave</th></tr></thead><tbody>
-<tr><td>Restaurantes urbanos (Puerto Natales)</td><td>Cocina regional, cordero, mariscos, comida rápida, cafeterías</td><td>Reserva por WhatsApp, teléfono, redes o llegada directa</td><td>Mesas, asientos, rotación, ticket promedio</td></tr>
-<tr><td>Hoteles y lodges (ciudad y parque)</td><td>Restaurante propio, media pensión o pensión completa</td><td>Incluido en tarifa o venta aparte</td><td>Cubiertos por huésped-noche, comensales externos</td></tr>
-<tr><td>Refugios y campamentos</td><td>Menú fijo, viandas</td><td>Prepago con la reserva del refugio</td><td>Cupos de comida por noche</td></tr>
-<tr><td>Cafeterías y minimarkets en ruta</td><td>Comida rápida y bebidas</td><td>Pago en el lugar</td><td>Transacciones por hora</td></tr>
-<tr><td>Delivery y viandas para excursiones</td><td>Lunch box para trekking</td><td>Preventa por operador turístico</td><td>Unidades por excursión</td></tr></tbody></table></div>
+<h2>5. Modelo de capacidad y demanda, con incertidumbre</h2>
+<p class="muted"><b>Capacidad diaria</b> = establecimientos × mesas × asientos por mesa × (horas de servicio ÷ duración media de una ocupación) × utilización operativa × servicios al día. <b>Demanda diaria</b> = visitantes en la zona × % que come fuera × comidas por día. Cada entrada se ingresa como rango (mínimo, más probable, máximo) con distribución triangular y se simula con Monte Carlo (10 000 iteraciones, semilla fija para poder reproducir). <b>Todos los valores iniciales son supuestos sin fuente</b> y deben reemplazarse con los datos de la sección 3.</p>
+<div class="card"><div class="wrap"><table id="inputs"><thead><tr><th>Entrada</th><th>Mínimo</th><th>Más probable</th><th>Máximo</th><th>Fuente</th></tr></thead><tbody></tbody></table></div>
+<button class="btn" id="run" type="button">Simular</button>
+<div class="out" id="mcOut" role="status" aria-live="polite">Pulse «Simular».</div>
+<div id="tornado" aria-label="Sensibilidad"></div></div>
+<p class="muted"><b>Demanda censurada:</b> si hay racionamiento, las ventas observadas son una cota inferior de la demanda. Se corrige con los rechazos registrados (H2) y, si hay series suficientes, con un modelo de demanda censurada (tipo Tobit) sobre reservas. <b>Demanda estacional:</b> serie mensual de visitantes CONAF con descomposición estacional (STL) o SARIMA; su calidad se evalúa con el <i>backtesting</i> de la sección 8.</p>
 
-<h2>3. Cómo medir la oferta real: fuentes e indicadores</h2>
-<div class="wrap"><table><thead><tr><th>Indicador</th><th>Fuente a consultar</th><th>Método</th></tr></thead><tbody>
-<tr><td>Número de establecimientos de alojamiento y su capacidad</td><td>SERNATUR (registro y estadísticas) e INE (encuesta de alojamiento turístico)</td><td>Descargar por comuna (Natales y Torres del Paine)</td></tr>
-<tr><td>Establecimientos de alimentación</td><td>Patentes municipales, SII (inicio de actividades por giro y comuna), SEREMI de Salud (autorización sanitaria)</td><td>Cruce de listas y verificación en terreno</td></tr>
-<tr><td>Visitantes al parque</td><td>CONAF (estadísticas de visitantes por área protegida)</td><td>Serie mensual, separando nacionales y extranjeros</td></tr>
-<tr><td>Llegadas y pernoctaciones</td><td>INE y SERNATUR; aeropuerto y terminales</td><td>Serie mensual y estacionalidad</td></tr>
-<tr><td>Precios</td><td>Muestra propia (menús y cartas publicados), INE (IPC por división «restaurantes y alojamiento»)</td><td>Canasta fija de 8 a 10 platos y bebidas, medida el mismo día cada mes</td></tr>
-<tr><td>Demanda en línea</td><td>Google Business Profile, Tripadvisor, Google Trends, Booking</td><td>Reseñas, puntaje y tendencia de búsquedas</td></tr>
-<tr><td>Contexto financiero</td><td>Banco Central (tipo de cambio, PIB turismo), SII (ventas), CMF</td><td>Tipo de cambio USD/CLP, que afecta el gasto del extranjero</td></tr></tbody></table></div>
-<p><b>Diseño estadístico:</b> para precios, una muestra estratificada por segmento y ubicación; reportar mediana y rango intercuartílico (no solo promedio, por los valores extremos); intervalos de confianza del 95 %; y deflactar por IPC para comparar en el tiempo. Para el conteo de oferta, un censo con registro de la fecha, fuente y calidad del dato.</p>
+<h2>6. Precios y respuesta de la demanda</h2>
+<div class="card"><ul>
+<li><b>Regresión hedónica:</b> log(precio) ~ estrato + ubicación (Natales, parque, ruta) + temporada + tipo de plato. El coeficiente de ubicación contrasta H3, con errores estándar agrupados por local.</li>
+<li><b>Elasticidad:</b> aprovechar cambios de precio entre temporadas y diferencias entre locales para estimar la elasticidad, controlando por tipo de cambio (Banco Central) y por visitantes (CONAF). Con pocos datos, informar el intervalo y no un solo valor.</li>
+<li><b>Política:</b> solo si H1 y H2 se sostienen se evalúan alternativas (precio, anticipo, turnos); cada una con su efecto esperado y su incertidumbre.</li></ul></div>
 
-<h2>4. Calculadora de mesas disponibles en temporada alta</h2>
-<p class="muted">Capacidad = establecimientos × mesas × asientos por mesa × turnos por día. Demanda = visitantes × % que come en restaurantes × comidas por día fuera de pensión. Valores ilustrativos y editables.</p>
+<h2>7. Ticket de bienvenida: experimento aleatorizado</h2>
+<div class="card"><p><b>Diseño:</b> asignar al azar (por mesa o por huésped) el ticket de bebida gratis (tratamiento) o ninguno (control), con la regla de asignación y la hipótesis <b>registradas antes</b> de empezar (pre-registro). Métrica primaria: gasto incremental por mesa. Métricas secundarias: tasa de canje, tiempo de permanencia, reseñas. Costo por venta incremental = costo de la bebida ÷ gasto incremental.</p>
+<p><b>Tamaño de muestra</b> (comparación de dos medias): <i>n</i> por grupo = 2·(z<sub>α/2</sub> + z<sub>β</sub>)²·σ² ÷ Δ². Valores de σ y Δ iniciales son <b>supuestos sin fuente</b>; la desviación real debe salir de datos del POS de los restaurantes.</p>
+<div class="grid">
+<div><label for="sd">Desviación estándar del gasto por mesa (CLP)</label><input id="sd" type="number" min="1" value="9000"></div>
+<div><label for="dl">Efecto mínimo a detectar Δ (CLP)</label><input id="dl" type="number" min="1" value="1500"></div>
+<div><label for="al">Nivel de significancia α</label><input id="al" type="number" min="0.001" max="0.5" step="0.001" value="0.05"></div>
+<div><label for="pw">Potencia (1 − β)</label><input id="pw" type="number" min="0.5" max="0.999" step="0.01" value="0.8"></div></div>
+<button class="btn" id="pwBtn" type="button">Calcular tamaño de muestra</button>
+<div class="out" id="pwOut" role="status" aria-live="polite"></div></div>
+
+<h2>8. Sistema del ticket: especificación y prototipo</h2>
+<div class="wrap"><table><thead><tr><th>Capa</th><th>Especificación</th><th>Por qué</th></tr></thead><tbody>
+<tr><td>Firma</td><td>En el <b>servidor</b>, HMAC-SHA256 con clave secreta fuera del repositorio, o Ed25519 si el validador del local no debe conocer el secreto.</td><td>Si la clave está en el navegador, cualquiera puede falsificar tickets.</td></tr>
+<tr><td>Canje único</td><td>Tabla <code>ticket</code> con <code>id</code> como clave primaria y una columna <code>redeemed_at</code> actualizada con <code>UPDATE … WHERE redeemed_at IS NULL</code> en una sola transacción.</td><td>Impide el doble canje incluso con solicitudes simultáneas.</td></tr>
+<tr><td>Prueba de concurrencia</td><td>Lanzar N solicitudes simultáneas de canje del mismo ticket; debe aceptar exactamente una.</td><td>El defecto típico es una condición de carrera.</td></tr>
+<tr><td>Lenguaje</td><td>TypeScript/Node.js o Python (FastAPI) en el servidor, con PostgreSQL o SQLite; HTML/JS en el teléfono; Rust solo si el volumen lo justifica.</td><td>Criptografía estándar madura, un mismo lenguaje en cliente y servidor con TypeScript, y despliegue simple.</td></tr>
+<tr><td>Privacidad</td><td>Entrega con consentimiento (Ley 21.719), sin guardar más datos que el ID del ticket y el local.</td><td>Minimización de datos.</td></tr></tbody></table></div>
+<p class="warn"><b>Prototipo de demostración, no producción:</b> el siguiente bloque firma y registra canjes <b>en el navegador</b> (<code>localStorage</code>). Sirve para ver el flujo, pero cualquiera con acceso al navegador puede leer la clave y falsificar tickets. La versión real firma y registra en el servidor.</p>
 <div class="card"><div class="grid">
-<div><label for="n">N.º de establecimientos</label><input id="n" type="number" min="0" value="40"></div>
-<div><label for="t">Mesas promedio por establecimiento</label><input id="t" type="number" min="0" value="12"></div>
-<div><label for="s">Asientos promedio por mesa</label><input id="s" type="number" min="1" step="0.1" value="3.5"></div>
-<div><label for="r">Turnos (rotaciones) por servicio</label><input id="r" type="number" min="1" step="0.1" value="1.5"></div>
-<div><label for="sv">Servicios por día (almuerzo, cena)</label><input id="sv" type="number" min="1" value="2"></div>
-<div><label for="u">% de ocupación máxima operativa</label><input id="u" type="number" min="1" max="100" value="85"></div>
-<div><label for="v">Visitantes en la zona por día</label><input id="v" type="number" min="0" value="2500"></div>
-<div><label for="p">% que come en restaurantes</label><input id="p" type="number" min="0" max="100" value="60"></div>
-<div><label for="m">Comidas por día fuera de pensión</label><input id="m" type="number" min="0" step="0.1" value="1.2"></div>
-<div><label for="d">Días de temporada alta</label><input id="d" type="number" min="1" value="120"></div>
-<div><label for="tk">Ticket promedio por persona (CLP)</label><input id="tk" type="number" min="0" value="18000"></div></div>
-<button class="btn" id="calc" type="button">Calcular</button>
-<div class="out" id="calcOut" role="status" aria-live="polite"></div></div>
-
-<h2>5. Monitoreo comercial: reservas, compras y pagos</h2>
-<div class="wrap"><table><thead><tr><th>Evento</th><th>Qué registrar</th><th>KPI</th></tr></thead><tbody>
-<tr><td>Consulta de mesa</td><td>Canal (WhatsApp, web, teléfono, redes), fecha, personas</td><td>Consultas por canal y tiempo de respuesta</td></tr>
-<tr><td>Reserva confirmada</td><td>Fecha, hora, personas, anticipo si aplica</td><td>Conversión consulta→reserva; % de no presentados (no-show)</td></tr>
-<tr><td>Compra de plato (pedido)</td><td>Ítem, precio, medio de pago, hora</td><td>Ticket promedio, mix de platos, ventas por hora</td></tr>
-<tr><td>Demanda no atendida</td><td>Solicitudes rechazadas por falta de mesa</td><td>Demanda insatisfecha = base para fijar precios y turnos</td></tr>
-<tr><td>Ticket de bienvenida</td><td>Emitido, canjeado, consumo asociado</td><td>Tasa de canje y gasto adicional por ticket</td></tr></tbody></table></div>
-<h3>Cómo se paga la comida (descripción para el turista)</h3>
-<ul><li><b>Pesos chilenos:</b> efectivo, tarjetas de débito y crédito (Redcompra, Visa, Mastercard) y transferencia electrónica.</li>
-<li><b>Extranjeros:</b> tarjetas internacionales; algunos locales aceptan dólares o euros, con tipo de cambio propio. Conviene exigir el valor en CLP antes de pagar.</li>
-<li><b>Propina:</b> en Chile suele sugerirse un 10 % del consumo; es voluntaria, pero en muchos restaurantes se incluye en la cuenta con la opción de rechazarla.</li>
-<li><b>Anticipos y pre-pago:</b> comunes en refugios y menús de grupos. Debe informarse la política de cancelación (Ley del Consumidor).</li>
-<li><b>Boleta:</b> el comprador debe recibir boleta electrónica del SII.</li>
-<li><b>Conectividad:</b> en zonas del parque puede fallar el terminal de pago; llevar efectivo como respaldo.</li></ul>
-<p class="muted">Perspectiva financiera: el gasto turístico en gastronomía depende del tipo de cambio, del ingreso de los visitantes y de la inflación local (IPC de restaurantes); un peso más débil abarata el destino para el extranjero y puede aumentar la demanda. Si la plataforma procesara pagos, aplican la Ley Fintec y la protección al consumidor (ver <a href="opendirectory-fintech-turismo-parques.html">página de fintech y turismo</a>).</p>
-
-<h2>6. Máquina de ticket digital de bienvenida (bebida gratis)</h2>
-<p><b>Cómo funciona:</b> el sistema genera un código único firmado (HMAC-SHA256) con ID de ticket y fecha de vencimiento. El local valida la firma y registra el canje para impedir su reutilización. Abajo hay un prototipo funcional en el navegador.</p>
-<div class="card"><div class="grid">
-<div><label for="tName">Nombre del huésped</label><input id="tName" maxlength="60" value="Huésped"></div>
+<div><label for="tName">Huésped</label><input id="tName" maxlength="60" value="Huésped"></div>
 <div><label for="tVenue">Local emisor</label><input id="tVenue" maxlength="60" value="Restaurante demo"></div>
 <div><label for="tDays">Validez (días)</label><input id="tDays" type="number" min="1" max="30" value="3"></div></div>
 <button class="btn" id="issue" type="button">Emitir ticket</button>
 <div class="out" id="issueOut" role="status" aria-live="polite"></div>
-<div style="margin-top:12px"><label for="tCode">Validar / canjear código</label><input id="tCode" placeholder="Pegue el código del ticket"></div>
+<div style="margin-top:12px"><label for="tCode">Validar / canjear código</label><input id="tCode" placeholder="Código del ticket"></div>
 <button class="btn" id="redeem" type="button">Validar y canjear</button>
 <div class="out" id="redeemOut" role="status" aria-live="polite"></div></div>
-<p class="warn"><b>Limitación del prototipo:</b> la clave secreta y el registro de canjes están en el navegador (<code>localStorage</code>); sirve para demostrar la lógica, no para producción. En producción, la firma y el registro de canjes deben estar en el servidor.</p>
-<h3>¿Con qué lenguaje y por qué?</h3>
-<div class="wrap"><table><thead><tr><th>Capa</th><th>Opción recomendada</th><th>Por qué</th></tr></thead><tbody>
-<tr><td>Interfaz web del huésped y del local</td><td>HTML, CSS y JavaScript (o TypeScript)</td><td>Funciona en cualquier teléfono sin instalar nada, coincide con el resto del repositorio y se publica en GitHub Pages.</td></tr>
-<tr><td>Servidor y API (emisión, validación, canje)</td><td>TypeScript con Node.js, o Python (FastAPI)</td><td>Ecosistema maduro, criptografía estándar, fácil de contratar y mantener; un solo lenguaje con el frontend si se usa TypeScript.</td></tr>
-<tr><td>Núcleo de validación de alto rendimiento (opcional)</td><td>Rust</td><td>Seguridad de memoria y velocidad; solo si el volumen lo justifica, vía WebAssembly o servicio propio (ver el plan de código del repositorio).</td></tr>
-<tr><td>Base de datos</td><td>PostgreSQL o SQLite</td><td>Integridad transaccional para que un ticket no se canjee dos veces (restricción única).</td></tr>
-<tr><td>QR</td><td>Librería de generación de QR</td><td>El huésped muestra el QR en el teléfono y el local lo escanea con la cámara.</td></tr></tbody></table></div>
-<p><b>Marketing digital:</b> el ticket se entrega por WhatsApp o correo con consentimiento (Ley 21.719), con parámetros UTM para medir qué campaña lo originó. Métricas: emisión, canje, gasto asociado, costo por canje y retorno (ROI). Una prueba A/B de textos y ofertas mide el efecto sobre la conversión.</p>
 
-<h2>7. Análisis de precios y marketing digital</h2>
-<div class="card"><ul>
-<li><b>Precio:</b> construir un índice de la canasta fija por segmento; comparar con el IPC de restaurantes y con Punta Arenas como referencia regional.</li>
-<li><b>Discriminación de precios:</b> menús turísticos, horarios y temporada; vigilar la elasticidad con pruebas controladas.</li>
-<li><b>Posicionamiento:</b> productos con identidad local (cordero magallánico, centolla, mariscos) y reseñas en Google Business Profile y Tripadvisor.</li>
-<li><b>Embudo:</b> descubrimiento (búsqueda y mapas) → consulta → reserva → visita → reseña. Medir cada paso.</li>
-<li><b>SEO local:</b> fichas completas y consistentes (nombre, dirección, horario), enlaces desde el directorio (ver <a href="opendirectory-informe-datos-seo.html">informe de datos y SEO</a>).</li></ul></div>
+<h2>9. Verificaciones legales y tributarias pendientes (sin confirmar)</h2>
+<ul><li>¿La entrega gratuita de una bebida con alcohol exige patente de alcohol o tiene restricciones? <b>Sin confirmar</b>; consultar a la municipalidad y a un abogado.</li>
+<li>Tratamiento tributario de bebidas entregadas sin costo (regalo promocional) frente al SII. <b>Sin confirmar</b>; consultar a un contador.</li>
+<li>Publicidad y promociones bajo la Ley del Consumidor (condiciones, vencimiento y límites claros). <b>Sin confirmar</b>.</li>
+<li>Datos personales de huéspedes (Ley 21.719) y envío de mensajes comerciales con consentimiento. <b>Sin confirmar</b>; ver <a href="opendirectory-ciberseguridad-leyes.html">ciberseguridad y datos</a>.</li>
+<li>Si se procesaran pagos o anticipos, revisar la <a href="opendirectory-fintech-turismo-parques.html">Ley Fintec</a>. <b>Sin confirmar</b>.</li></ul>
 
-<h2>8. Riesgos y limitaciones</h2>
-<ul><li>Sin censo real, las conclusiones de capacidad son escenarios, no mediciones.</li>
-<li>Dependencia fuerte de la estacionalidad, del clima y del tipo de cambio.</li>
-<li>Los datos de reservas y pagos son personales y comerciales: aplicar consentimiento y seguridad (ver <a href="opendirectory-ciberseguridad-leyes.html">página de ciberseguridad</a>).</li>
-<li>El doble recuento (hoteles con restaurante propio y comensales externos) puede sesgar la oferta si no se separa.</li></ul>
+<h2>10. Validación por terceros: qué mostraría que el resultado es correcto</h2>
+<div class="wrap"><table><thead><tr><th>Control</th><th>Criterio de aceptación</th></tr></thead><tbody>
+<tr><td>Conciliación con cifras oficiales</td><td>Los establecimientos y asientos estimados se comparan con los conteos de SERNATUR, INE y el SII; se fija de antemano la diferencia máxima tolerada y se explica cualquier brecha.</td></tr>
+<tr><td><i>Backtesting</i> del modelo de demanda</td><td>Ajustar con temporadas anteriores y predecir la última; informar el error de pronóstico (p. ej. MAPE) y comparar con un modelo ingenuo (misma temporada del año anterior). Si no lo supera, no se usa.</td></tr>
+<tr><td>Verdad de terreno de operadores</td><td>Contrastar la capacidad estimada con los cubiertos reales por noche pico de 3 a 5 restaurantes.</td></tr>
+<tr><td>Experimento aleatorizado</td><td>El efecto del ticket lo decide el resultado pre-registrado, con su intervalo de confianza, no una opinión.</td></tr>
+<tr><td>Replicación independiente</td><td>Un segundo analista reproduce todas las cifras desde los archivos crudos y los scripts, con el diccionario de datos.</td></tr>
+<tr><td>Revisión experta</td><td>Un economista local de turismo/hotelería y un funcionario de SERNATUR revisan el diseño; sus objeciones se anotan.</td></tr>
+<tr><td>Revisión legal y tributaria</td><td>Un abogado y un contador confirman los puntos de la sección 9.</td></tr></tbody></table></div>
+
+<h2>11. Preguntas abiertas</h2>
+<ul><li>¿Qué restaurantes aceptarán compartir reservas rechazadas y exportaciones del POS, y cómo se corrige el sesgo de selección?</li>
+<li>¿CONAF entregará series diarias o solo mensuales? Cambia la resolución del modelo de demanda.</li>
+<li>¿Cómo se estima la fracción de visitantes que se alojan en Puerto Natales y comen allí, si ninguna fuente la mide directamente?</li>
+<li>¿Se puede aleatorizar el ticket a nivel de mesa sin que los restaurantes se vean afectados por contaminación entre grupos?</li></ul>
 
 <script>
 (()=>{
 const $=id=>document.getElementById(id);
-const num=id=>{const x=parseFloat($(id).value);return Number.isFinite(x)&&x>=0?x:0};
 const fmt=x=>Math.round(x).toLocaleString('es-CL');
-$('calc').addEventListener('click',()=>{
- const tables=num('n')*num('t');
- const seatsPerService=tables*num('s')*num('r')*(num('u')/100);
- const capDay=seatsPerService*num('sv');
- const demDay=num('v')*(num('p')/100)*num('m');
- const gap=capDay-demDay,util=capDay?demDay/capDay*100:0;
- const revenue=Math.min(capDay,demDay)*num('tk')*num('d');
- $('calcOut').textContent=
-  `Mesas totales: ${fmt(tables)}\nCapacidad diaria: ${fmt(capDay)} cubiertos\nDemanda diaria: ${fmt(demDay)} cubiertos\n`+
-  (gap>=0?`Holgura: ${fmt(gap)} cubiertos al día (uso ${util.toFixed(0)}%)`:`Déficit: ${fmt(-gap)} cubiertos al día sin mesa (demanda insatisfecha)`)+
-  `\nIngreso potencial de temporada (limitado por la oferta): $${fmt(revenue)} CLP`;
+const VARS=[
+ ['n','Establecimientos con servicio de comida fuera del alojamiento',20,35,60],
+ ['t','Mesas operativas por establecimiento',6,10,18],
+ ['s','Asientos promedio por mesa',2.8,3.4,4.2],
+ ['h','Horas de servicio al día',5,7,9],
+ ['d','Duración media de una ocupación (horas)',0.9,1.3,1.8],
+ ['u','Utilización operativa (0 a 1)',0.6,0.8,0.95],
+ ['v','Visitantes en la zona por día pico',1200,2200,3500],
+ ['p','Fracción que come fuera del alojamiento (0 a 1)',0.3,0.5,0.7],
+ ['m','Comidas fuera por persona al día',0.6,1,1.5]];
+const tb=document.querySelector('#inputs tbody');
+VARS.forEach(([k,l,a,b,c])=>{const tr=document.createElement('tr');
+ tr.innerHTML=`<td>${l}</td>`+[a,b,c].map((x,i)=>`<td class="in"><input type="number" step="any" id="${k}${i}" value="${x}" aria-label="${l} ${['mínimo','más probable','máximo'][i]}"></td>`).join('')+'<td><i>Supuesto sin fuente</i></td>';
+ tb.appendChild(tr)});
+const get=k=>[0,1,2].map(i=>{const x=parseFloat($(k+i).value);return Number.isFinite(x)&&x>=0?x:0}).sort((a,b)=>a-b);
+function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const tri=(r,[a,m,b])=>{if(b<=a)return a;const u=r(),f=(m-a)/(b-a);return u<f?a+Math.sqrt(u*(b-a)*(m-a)):b-Math.sqrt((1-u)*(b-a)*(b-m))};
+function model(x){
+ const cap=x.n*x.t*x.s*(x.h/Math.max(x.d,0.1))*Math.min(x.u,1);
+ const dem=x.v*Math.min(x.p,1)*x.m;
+ return{cap,dem,gap:cap-dem};}
+const pct=(a,q)=>a[Math.min(a.length-1,Math.floor(q*a.length))];
+$('run').addEventListener('click',()=>{
+ const ranges=Object.fromEntries(VARS.map(([k])=>[k,get(k)]));
+ const r=rng(12345),N=10000,gaps=[],caps=[],dems=[];let short=0;
+ for(let i=0;i<N;i++){const x={};for(const k in ranges)x[k]=tri(r,ranges[k]);
+  const o=model(x);gaps.push(o.gap);caps.push(o.cap);dems.push(o.dem);if(o.dem>o.cap)short++}
+ [gaps,caps,dems].forEach(a=>a.sort((p,q)=>p-q));
+ $('mcOut').textContent=
+  `Simulación (${fmt(N)} iteraciones, semilla 12345; entradas = supuestos sin fuente)\n`+
+  `Capacidad de cubiertos al día: P10 ${fmt(pct(caps,.1))} · P50 ${fmt(pct(caps,.5))} · P90 ${fmt(pct(caps,.9))}\n`+
+  `Demanda de cubiertos al día:   P10 ${fmt(pct(dems,.1))} · P50 ${fmt(pct(dems,.5))} · P90 ${fmt(pct(dems,.9))}\n`+
+  `Holgura (capacidad − demanda): P10 ${fmt(pct(gaps,.1))} · P50 ${fmt(pct(gaps,.5))} · P90 ${fmt(pct(gaps,.9))}\n`+
+  `Probabilidad de demanda > capacidad: ${(short/N*100).toFixed(1)} %  (contraste de H1 solo con datos reales)`;
+ const mid=Object.fromEntries(Object.entries(ranges).map(([k,v])=>[k,v[1]]));
+ const rows=VARS.map(([k,l])=>{const lo=model({...mid,[k]:ranges[k][0]}).gap,hi=model({...mid,[k]:ranges[k][2]}).gap;return{l,lo,hi,sw:Math.abs(hi-lo)}}).sort((a,b)=>b.sw-a.sw);
+ const mx=Math.max(...rows.map(x=>x.sw),1);
+ $('tornado').innerHTML='<h3>Sensibilidad (variación de la holgura al mover una entrada de su mínimo a su máximo)</h3>'+rows.map(x=>`<div style="display:grid;grid-template-columns:minmax(150px,1fr) 2fr 90px;gap:8px;align-items:center;margin:4px 0;font-size:13px"><span>${x.l}</span><div class="bar" style="width:${Math.max(1,x.sw/mx*100)}%"></div><span>±${fmt(x.sw)}</span></div>`).join('');
 });
-const KEY='od-ticket-secret',USED='od-ticket-used';
-const enc=new TextEncoder();
+// z: inverse normal CDF (Abramowitz & Stegun 26.2.23)
+function z(p){const q=p>0.5?1-p:p,t=Math.sqrt(-2*Math.log(q));
+ const x=t-(2.515517+0.802853*t+0.010328*t*t)/(1+1.432788*t+0.189269*t*t+0.001308*t**3);return p>0.5?x:-x}
+$('pwBtn').addEventListener('click',()=>{
+ const sd=parseFloat($('sd').value),dl=parseFloat($('dl').value),al=parseFloat($('al').value),pw=parseFloat($('pw').value);
+ if(!(sd>0&&dl>0&&al>0&&al<1&&pw>0&&pw<1)){$('pwOut').textContent='Revise los valores.';return}
+ const n=Math.ceil(2*Math.pow(z(1-al/2)+z(pw),2)*sd*sd/(dl*dl));
+ $('pwOut').textContent=`Mesas necesarias por grupo: ${fmt(n)} (total ${fmt(2*n)}).\nDepende de σ y Δ: con σ real distinta, recalcule. Aproximación normal, prueba bilateral.`});
+const KEY='od-ticket-secret',USED='od-ticket-used',enc=new TextEncoder();
 const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
 function secret(){let k=localStorage.getItem(KEY);if(!k){k=hex(crypto.getRandomValues(new Uint8Array(32)));localStorage.setItem(KEY,k)}return k}
 async function sign(msg){const key=await crypto.subtle.importKey('raw',enc.encode(secret()),{name:'HMAC',hash:'SHA-256'},false,['sign']);return hex(await crypto.subtle.sign('HMAC',key,enc.encode(msg))).slice(0,24)}
 const used=()=>{try{return JSON.parse(localStorage.getItem(USED)||'[]')}catch{return[]}};
 $('issue').addEventListener('click',async()=>{
- if(!window.crypto||!crypto.subtle){$('issueOut').textContent='Este navegador no permite WebCrypto (se requiere HTTPS o localhost).';return}
- const id=hex(crypto.getRandomValues(new Uint8Array(6)));
- const days=Math.min(30,Math.max(1,parseInt($('tDays').value,10)||1));
- const exp=Math.floor(Date.now()/1000)+days*86400;
- const payload=`${id}.${exp}`;
- const code=`${payload}.${await sign(payload)}`;
- $('issueOut').textContent=`Ticket de bebida de bienvenida\nHuésped: ${$('tName').value.trim()||'-'}\nLocal: ${$('tVenue').value.trim()||'-'}\nVence: ${new Date(exp*1000).toLocaleDateString('es-CL')}\nCódigo: ${code}`;
- $('tCode').value=code;
-});
+ if(!window.crypto||!crypto.subtle){$('issueOut').textContent='Requiere WebCrypto (HTTPS o localhost).';return}
+ const id=hex(crypto.getRandomValues(new Uint8Array(6))),days=Math.min(30,Math.max(1,parseInt($('tDays').value,10)||1)),exp=Math.floor(Date.now()/1000)+days*86400,p=`${id}.${exp}`,code=`${p}.${await sign(p)}`;
+ $('issueOut').textContent=`Ticket de bebida de bienvenida (PROTOTIPO)\nHuésped: ${$('tName').value.trim()||'-'}\nLocal: ${$('tVenue').value.trim()||'-'}\nVence: ${new Date(exp*1000).toLocaleDateString('es-CL')}\nCódigo: ${code}`;$('tCode').value=code});
 $('redeem').addEventListener('click',async()=>{
- const code=$('tCode').value.trim(),parts=code.split('.');
+ const parts=$('tCode').value.trim().split('.');
  if(parts.length!==3){$('redeemOut').textContent='Formato inválido.';return}
- const [id,exp,sig]=parts;
- if(sig!==await sign(`${id}.${exp}`)){$('redeemOut').textContent='Firma inválida: ticket falso o alterado.';return}
+ const[id,exp,sig]=parts;
+ if(!window.crypto||!crypto.subtle){$('redeemOut').textContent='Requiere WebCrypto.';return}
+ if(sig!==await sign(`${id}.${exp}`)){$('redeemOut').textContent='Firma inválida.';return}
  if(Date.now()/1000>Number(exp)){$('redeemOut').textContent='Ticket vencido.';return}
- const u=used();
- if(u.includes(id)){$('redeemOut').textContent='Este ticket ya fue canjeado.';return}
- u.push(id);localStorage.setItem(USED,JSON.stringify(u));
- $('redeemOut').textContent='Ticket válido: entregue la bebida de bienvenida. Canje registrado.';
-});
+ const u=used();if(u.includes(id)){$('redeemOut').textContent='Ya canjeado.';return}
+ u.push(id);localStorage.setItem(USED,JSON.stringify(u));$('redeemOut').textContent='Ticket válido: canje registrado (en este navegador).'});
 })();
 </script>
 </main></body></html>
