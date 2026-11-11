@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Informe: base de datos, recolección y analítica de datos para SEO en OpenDirectory.">
+<title>Informe | Base de datos, recolección y analítica SEO | OpenDirectory</title>
+<style>
+:root{--bg:#f5f7f4;--surface:#fff;--text:#17221c;--muted:#65736a;--brand:#176b4d;--line:#dbe4dc}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1511;--surface:#142019;--text:#edf6f0;--muted:#9fb1a5;--brand:#49b887;--line:#2a3c31}}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,sans-serif}main{max-width:1000px;margin:auto;padding:24px}
+a{color:var(--brand)}h2{margin-top:36px;color:var(--brand)}.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 20px}
+.wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;background:var(--surface)}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top;font-size:14px}th{background:var(--brand);color:#fff}
+pre{background:var(--surface);border:1px solid var(--line);padding:12px;border-radius:10px;overflow-x:auto;font-size:13px}.muted{color:var(--muted)}
+</style></head><body><main>
+<p><a href="opendirectory.html">← OpenDirectory</a></p>
+<h1>Base de datos, recolección y analítica de datos para SEO</h1>
+<p class="muted">Informe de diagnóstico y recomendaciones. Nivel profesional. Basado en el estado actual del repositorio.</p>
+
+<h2>1. Diagnóstico del estado actual</h2>
+<div class="card"><ul>
+<li><b>No hay base de datos.</b> Las empresas están en arreglos JS embebidos en cada página (<code>opendirectory.html</code>, 100 registros demo en la página de Punta Arenas). El panel admin y el registro guardan en <code>localStorage</code> (<code>od-admin-state</code>, <code>od-business-requests</code>), es decir, solo en el navegador de cada usuario: no se comparte ni se puede analizar.</li>
+<li><b>Datos duplicados.</b> Varias páginas repiten los mismos datos; cualquier corrección exige editar muchos archivos.</li>
+<li><b>SEO mínimo.</b> Las páginas tienen <code>title</code> y <code>meta description</code> (la principal), pero no hay <code>sitemap.xml</code>, <code>robots.txt</code>, URL canónicas, Open Graph ni datos estructurados. Las fichas de empresa se generan con JS, sin URL propia: un buscador no puede indexarlas individualmente.</li>
+<li><b>Sin analítica.</b> No se mide búsquedas, clics ni altas, así que no hay base para decidir (ver el informe de estrategia).</li>
+<li><b>Calidad.</b> Hay registros <code>verified:false</code> junto a un texto que promete «información verificada».</li></ul></div>
+
+<h2>2. Modelo de datos recomendado</h2>
+<p>Los campos ya existen en el formulario de registro. Propuesta de tablas (PostgreSQL/SQLite):</p>
+<div class="wrap"><table><thead><tr><th>Tabla</th><th>Campos clave</th><th>Para SEO</th></tr></thead><tbody>
+<tr><td><code>business</code></td><td>id, slug, name, legal_name, rut (único), category_id, commune_id, address, lat, lng, description, website, instagram, languages, verified_at, updated_at, status</td><td><code>slug</code> da URL estable; <code>updated_at</code> alimenta <code>lastmod</code>; lat/lng y dirección alimentan <code>LocalBusiness</code></td></tr>
+<tr><td><code>category</code>, <code>commune</code></td><td>id, slug, name_es, name_en, parent_id</td><td>Páginas de aterrizaje «Turismo en Puerto Natales»</td></tr>
+<tr><td><code>keyword</code> / <code>business_keyword</code></td><td>término, idioma</td><td>Vocabulario controlado en lugar de texto libre</td></tr>
+<tr><td><code>contact</code> (separada)</td><td>business_id, email, teléfono, consentimiento</td><td>Datos personales fuera de la tabla pública</td></tr>
+<tr><td><code>event</code></td><td>id, ts, tipo (search, view, click_web, signup_start, signup_done), business_id, query, commune, sesión anónima</td><td>Analítica propia sin datos personales</td></tr>
+<tr><td><code>audit_log</code></td><td>quién, qué, cuándo</td><td>Trazabilidad de verificación</td></tr></tbody></table></div>
+<p><b>Elección técnica:</b> empezar con SQLite o Postgres administrado (p. ej. Supabase) y una API de solo lectura; exportar a <code>data/businesses.json</code> en cada cambio mantiene el sitio estático compatible con GitHub Pages.</p>
+
+<h2>3. Mejoras en la recolección de datos</h2>
+<div class="wrap"><table><thead><tr><th>Problema</th><th>Mejora</th></tr></thead><tbody>
+<tr><td>Entrada manual libre</td><td>Validar RUT (dígito verificador), formato de teléfono y URL; listas cerradas para categoría y comuna.</td></tr>
+<tr><td>Duplicados</td><td>RUT único y normalización de nombre; revisión en el panel admin.</td></tr>
+<tr><td>Datos desactualizados</td><td>Campo <code>updated_at</code> y recordatorio de revisión cada 6–12 meses.</td></tr>
+<tr><td>Descripciones pobres</td><td>Mínimo de caracteres (ya hay contador), plantilla guiada y descripción en ES y EN.</td></tr>
+<tr><td>Verificación poco clara</td><td>Niveles: declarado → email confirmado → verificado en terreno/documento, mostrados en la ficha.</td></tr>
+<tr><td>Geolocalización</td><td>Geocodificar la dirección y guardar lat/lng.</td></tr>
+<tr><td>Privacidad</td><td>Consentimiento explícito y minimización según Ley 19.628 y la nueva Ley 21.719 de datos personales; publicar solo datos de contacto del negocio.</td></tr></tbody></table></div>
+
+<h2>4. Mejoras SEO técnico y de contenido</h2>
+<div class="card"><ol>
+<li><b>Una URL por entidad:</b> <code>/empresa/patagonia-trek</code>, <code>/categoria/turismo</code>, <code>/comuna/puerto-natales</code>, <code>/turismo/puerto-natales</code>. Generarlas como HTML estático desde los datos (generador de sitio) para que sean indexables sin JS.</li>
+<li><b><code>sitemap.xml</code> y <code>robots.txt</code></b> generados desde la base, con <code>lastmod</code>.</li>
+<li><b>Etiquetas por página:</b> <code>title</code> y <code>description</code> únicos, <code>link rel="canonical"</code>, Open Graph, <code>hreflang</code> es/en.</li>
+<li><b>Datos estructurados JSON-LD</b> (<code>LocalBusiness</code>, <code>BreadcrumbList</code>); ejemplo:
+<pre>{"@context":"https://schema.org","@type":"LocalBusiness",
+ "name":"Patagonia Trek","address":{"@type":"PostalAddress",
+ "addressLocality":"Puerto Natales","addressCountry":"CL"},
+ "geo":{"@type":"GeoCoordinates","latitude":-51.73,"longitude":-72.5}}</pre></li>
+<li><b>Rendimiento (Core Web Vitals):</b> imágenes optimizadas, CSS/JS inline pequeño (hoy es una ventaja), sin bloqueo de render.</li>
+<li><b>Contenido local:</b> guías por territorio y temporada, noticias (<code>data/news.json</code>), enlaces internos entre categoría, comuna y empresa.</li>
+<li><b>Redirecciones:</b> mantener los archivos con nombres antiguos como redirecciones; considerar <code>301</code> reales si se cambia de alojamiento.</li></ol></div>
+
+<h2>5. Analítica</h2>
+<div class="wrap"><table><thead><tr><th>Pregunta</th><th>Métrica</th><th>Fuente</th></tr></thead><tbody>
+<tr><td>¿Nos encuentran?</td><td>Impresiones, clics, CTR, posición por consulta y página</td><td>Google Search Console, Bing Webmaster</td></tr>
+<tr><td>¿Qué buscan en el sitio?</td><td>Términos de búsqueda internos, búsquedas sin resultados</td><td>Tabla <code>event</code></td></tr>
+<tr><td>¿Qué empresas generan interés?</td><td>Vistas de ficha, clics a web/teléfono/Instagram</td><td><code>event</code></td></tr>
+<tr><td>¿Se registran empresas?</td><td>Embudo: inicio → paso 2 → envío → aprobación</td><td><code>event</code> + admin</td></tr>
+<tr><td>¿Calidad del directorio?</td><td>% verificadas, % completas, antigüedad media</td><td>SQL sobre <code>business</code></td></tr>
+<tr><td>¿Rendimiento técnico?</td><td>LCP, INP, CLS</td><td>PageSpeed / CrUX</td></tr></tbody></table></div>
+<p>Preferir herramientas respetuosas de la privacidad (Plausible, Umami, o analítica propia) y evitar identificadores personales; si se usa Google Analytics, añadir aviso de cookies.</p>
+<p><b>Ejemplo de consulta:</b> búsquedas sin resultados, que indican categorías o empresas faltantes:</p>
+<pre>SELECT query, COUNT(*) AS n FROM event
+WHERE type='search' AND results=0
+GROUP BY query ORDER BY n DESC LIMIT 20;</pre>
+
+<h2>6. Hoja de ruta</h2>
+<div class="wrap"><table><thead><tr><th>Fase</th><th>Acciones</th><th>Resultado</th></tr></thead><tbody>
+<tr><td>1 (rápida)</td><td>Crear <code>data/businesses.json</code> única; añadir <code>sitemap.xml</code>, <code>robots.txt</code>, canonical, Open Graph; registrar el sitio en Search Console.</td><td>Una sola fuente de datos y base de indexación</td></tr>
+<tr><td>2</td><td>Base de datos real + API; formulario que escribe en ella; validaciones; niveles de verificación.</td><td>Datos compartidos y confiables</td></tr>
+<tr><td>3</td><td>Generar páginas estáticas por empresa/categoría/comuna con JSON-LD; tabla <code>event</code> y panel de métricas.</td><td>Indexación individual y decisiones con datos</td></tr>
+<tr><td>4</td><td>Contenido local, bilingüe, enlaces internos; revisión mensual de métricas.</td><td>Crecimiento orgánico sostenido</td></tr></tbody></table></div>
+
+<h2>7. Riesgos y preguntas abiertas</h2>
+<ul><li>¿Quién es responsable de verificar y actualizar los datos? Sin un responsable, la base se degrada.</li>
+<li>Con solo ~100 registros de demostración, el SEO depende de contenido propio útil, no de volumen. Las páginas casi vacías pueden perjudicar el posicionamiento.</li>
+<li>¿Qué métrica define el éxito: altas de empresas o visitas de turistas? Cambia qué se optimiza.</li>
+<li>Las cifras y plazos de este informe son recomendaciones de criterio, no mediciones del sitio.</li></ul>
+</main></body></html>
